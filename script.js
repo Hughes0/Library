@@ -20,17 +20,22 @@ let books = [
 function updatePage() {
     for (let i = 0; i < books.length; i++) {
         let book = books[i];
+        // create book card element
         let bookCard = document.createElement("div");
         bookCard.className = "card";
+        // add title element
         let title = document.createElement("h2");
         title.textContent = book.title;
         bookCard.appendChild(title);
+        // add author element
         let author = document.createElement("h3");
         author.textContent = `by ${book.author}`;
         bookCard.appendChild(author);
+        // add pages element
         let pages = document.createElement("p");
         pages.textContent = `${book.pages} pages`;
         bookCard.appendChild(pages);
+        // add read checkbox and label
         let readLabel = document.createElement("label");
         readLabel.htmlFor = "read";
         readLabel.textContent = "Read";
@@ -40,6 +45,12 @@ function updatePage() {
         read.checked = book.read;
         read.id = "read";
         bookCard.appendChild(read);
+        // add button to remove book
+        let remove = document.createElement("button");
+        remove.className = "remove";
+        remove.textContent = "Remove";
+        remove.style['float'] = "right";
+        bookCard.appendChild(remove);
         document.getElementById("books").appendChild(bookCard);
     }
 }
