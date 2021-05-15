@@ -29,11 +29,16 @@ function updatePage() {
         author.textContent = `by ${book.author}`;
         bookCard.appendChild(author);
         let pages = document.createElement("p");
-        pages.textContent = book.pages;
+        pages.textContent = `${book.pages} pages`;
         bookCard.appendChild(pages);
+        let readLabel = document.createElement("label");
+        readLabel.htmlFor = "read";
+        readLabel.textContent = "Read";
+        bookCard.appendChild(readLabel);
         let read = document.createElement("input");
         read.type = "checkbox";
         read.checked = book.read;
+        read.id = "read";
         bookCard.appendChild(read);
         document.getElementById("books").appendChild(bookCard);
     }
