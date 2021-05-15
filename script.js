@@ -8,7 +8,13 @@ class Book {
     }
 }
 
-let books = [new Book("Title", "Author", 193, true), new Book("Title 2", "Author 2", 205, false), new Book("Title 3", "Author 3", 332, true)];
+let books = [
+    new Book("This is a very long title that will either break everything or wrap", "Author", 193, true),
+    new Book("Title 2", "Author 2", 205, false),
+    new Book("Title 3", "Author 3", 332, true),
+    new Book("Title 4", "Author 4", 395, true),
+    new Book("title 5", "Author 5", 582, false)
+];
 
 
 function updatePage() {
@@ -20,7 +26,7 @@ function updatePage() {
         title.textContent = book.title;
         bookCard.appendChild(title);
         let author = document.createElement("h3");
-        author.textContent = book.author;
+        author.textContent = `by ${book.author}`;
         bookCard.appendChild(author);
         let pages = document.createElement("p");
         pages.textContent = book.pages;
@@ -29,7 +35,7 @@ function updatePage() {
         read.type = "checkbox";
         read.checked = book.read;
         bookCard.appendChild(read);
-        document.body.appendChild(bookCard);
+        document.getElementById("books").appendChild(bookCard);
     }
 }
 
@@ -39,3 +45,5 @@ function addBook(title, author, pages, read) {
     books.push(book);
     updatePage();
 }
+
+updatePage();
