@@ -4,8 +4,21 @@
 
 header {
     border: 1px solid black;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
 }
+
 
 main {
     border: 1px solid black;
+}
+
+#books {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);}
+
+.card {
+    margin: 10px;
 }
