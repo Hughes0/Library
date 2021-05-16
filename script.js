@@ -123,9 +123,14 @@ document.getElementById("add-book-submit").addEventListener("click", () => {
     let title = document.getElementById("add-book-title").value;
     let author = document.getElementById("add-book-author").value;
     let pages = parseInt(document.getElementById("add-book-pages").value);
-    let read = document.getElementById("add-book-read").checked;
-    addBook(title, author, pages, read);
-    document.getElementById("add-book-modal").style['display'] = "none";
+    if (title && author && pages) {
+        let read = document.getElementById("add-book-read").checked;
+        addBook(title, author, pages, read);
+        document.getElementById("add-book-modal").style['display'] = "none";
+    } else {
+        alert("Please fill out all information");
+    }
+    
 });
 
 
