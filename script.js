@@ -44,7 +44,6 @@ function updateStats() {
     let totalPages = 0;
     let totalBooks = 0;
     let booksRead = 0;
-    console.log(library);
     library.forEach(book => {
         totalPages += book.pages;
         totalBooks++;
@@ -94,6 +93,7 @@ function updatePage() {
         read.type = "checkbox";
         read.checked = book.read;
         read.id = "read";
+        read.className = "read";
         bookCard.appendChild(read);
         // add button to remove book
         let remove = document.createElement("button");
@@ -132,6 +132,24 @@ setLibrary();
 updatePage();
 
 
+function setReadButtons() {
+    let readButtons = document.getElementsByClassName("read");
+    for (let button of readButtons) {
+        button.addEventListener("change", () => {
+            let parentBookCard = button.parentElement;
+            let title = parentBookCard.getElementsByClassName("title")[0].textContent;
+            let index = library.findIndex((book) => {
+                return book.title == title;
+            });
+            let book = library[index];
+            book.read = button.checked;
+            localStorage.setItem(book.id, JSON.stringify(book));
+            updateStats();
+        });
+    }
+}
+
+
 function setRemoveButtons() {
     let removeButtons = document.getElementsByClassName("remove");
     for (let button of removeButtons) {
@@ -161,6 +179,8 @@ function addBook(title, author, pages, read) {
     setLibrary();
     updatePage();
     setRemoveButtons();
+    setReadButtons()
 }
 
 setRemoveButtons();
+setReadButtons();
