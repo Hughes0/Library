@@ -1,3 +1,7 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .card {
     border: 1px solid black;
 }
@@ -40,12 +44,41 @@ main {
     background-color: white;
     margin: auto;
     border: 1px solid black;
+    border-radius: 5px;
     width: 20%;
     padding: 10px;
 }
 
 #modal-content > * {
-    width: 100%;
+    width: 95%;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+#modal-content > input {
+    border: 1px solid black;
+}
+
+#modal-content p {
+    cursor:pointer
+}
+
+#close-modal {
+    padding: 5px;
+    background-color: red;
+}
+
+#add-book-submit {
+    padding: 5px;
+    background-color: green;
+}
+
+#add-book-button:hover {
+    cursor: pointer;
+    opacity: 50%;
 }
