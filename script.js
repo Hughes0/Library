@@ -18,6 +18,11 @@ let books = [
 
 
 function updatePage() {
+    let booksContainer = document.getElementById("books");
+    while (booksContainer.firstChild) {
+        booksContainer.removeChild(booksContainer.firstChild);
+    }
+
     for (let i = 0; i < books.length; i++) {
         let book = books[i];
         // create book card element
@@ -61,5 +66,25 @@ function addBook(title, author, pages, read) {
     books.push(book);
     updatePage();
 }
+
+
+document.getElementById("add-book-button").addEventListener("click", () => {
+    document.getElementById("add-book-modal").style['display'] = "block";
+});
+
+
+document.getElementById("close-modal").addEventListener("click", () => {
+    document.getElementById("add-book-modal").style['display'] = "none";
+});
+
+document.getElementById("add-book-submit").addEventListener("click", () => {
+    let title = document.getElementById("add-book-title").value;
+    let author = document.getElementById("add-book-author").value;
+    let pages = parseInt(document.getElementById("add-book-pages").value);
+    let read = document.getElementById("add-book-read").checked;
+    addBook(title, author, pages, read);
+    document.getElementById("add-book-modal").style['display'] = "none";
+});
+
 
 updatePage();

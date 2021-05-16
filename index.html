@@ -5,9 +5,24 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="add-book-modal">
+            <div id="modal-content">
+                <h1>Add Book</h1>
+                <input type="text" id="add-book-title" placeholder="Title"><br>
+                <input type="text" id="add-book-author" placeholder="Author"><br>
+                <input type="number" id="add-book-pages" placeholder="Pages"><br>
+                <div>
+                    <label for="add-book-read">Read</label>
+                    <input type="checkbox" id="add-book-read">
+                </div>
+                
+                <p id="close-modal">Cancel</p>
+                <p id="add-book-submit">Add</p>
+            </div>
+        </div>
         <header>
             <h1>Library</h1>
-            <button id="add-book">Add</button>
+            <button id="add-book-button">Add</button>
         </header>
         <main>
             <div id="books">
