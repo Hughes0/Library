@@ -12,6 +12,7 @@ function getBookIds() {
 let library = []
 function setLibrary() {
     let books = getBookIds();
+    library = []
     if (books) {
         for (let i = 0; i < books.length; i++) {
             let id = books[i];
@@ -37,6 +38,23 @@ class Book {
         }
         
     }
+}
+
+function updateStats() {
+    let totalPages = 0;
+    let totalBooks = 0;
+    let booksRead = 0;
+    console.log(library);
+    library.forEach(book => {
+        totalPages += book.pages;
+        totalBooks++;
+        if (book.read) {
+            booksRead++;
+        }
+    });
+    document.getElementById("total-pages").textContent = totalPages;
+    document.getElementById("total-books").textContent = totalBooks;
+    document.getElementById("books-read").textContent = booksRead;
 }
 
 
@@ -84,7 +102,8 @@ function updatePage() {
         remove.style['float'] = "right";
         bookCard.appendChild(remove);
         document.getElementById("books").appendChild(bookCard);
-    } 
+    }
+    updateStats();
 }
 
 
