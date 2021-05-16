@@ -58,6 +58,7 @@ function updateStats() {
 
 
 function updatePage() {
+    setLibrary();
     let booksContainer = document.getElementById("books");
     while (booksContainer.firstChild) {
         booksContainer.removeChild(booksContainer.firstChild);
@@ -128,7 +129,6 @@ document.getElementById("add-book-submit").addEventListener("click", () => {
 });
 
 
-setLibrary();
 updatePage();
 
 
@@ -163,23 +163,29 @@ function setRemoveButtons() {
             let ids = localStorage.getItem("ids");
             let newIds = ids.replace(library[index].id.toString() + ",", "");
             localStorage.setItem("ids", newIds);
-            setLibrary();
             updatePage();
         });
     }  
 }
 
 function addBook(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
-    // CHECK FOR UNIQUE TITLE
-    let ids = localStorage.getItem("ids");
-    ids = ids + book.id + ",";
-    localStorage.setItem("ids", ids);
-    localStorage.setItem(book.id, JSON.stringify(book));
-    setLibrary();
-    updatePage();
-    setRemoveButtons();
-    setReadButtons()
+    let uniqueTitle = true;
+    library.forEach(book => {
+        if (title == book.title) {
+            alert("Book already exists in your library");
+            uniqueTitle = false;
+        }
+    });
+    if (uniqueTitle) {
+        let book = new Book(title, author, pages, read);
+        let ids = localStorage.getItem("ids");
+        ids = ids + book.id + ",";
+        localStorage.setItem("ids", ids);
+        localStorage.setItem(book.id, JSON.stringify(book));
+        updatePage();
+        setRemoveButtons();
+        setReadButtons()
+    }
 }
 
 setRemoveButtons();
