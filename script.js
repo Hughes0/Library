@@ -1,20 +1,43 @@
 
+function getBookIds() {
+    let idsStr = localStorage.getItem("ids");
+    if (!idsStr) {
+        return null;
+    }
+    let ids = idsStr.split(",");
+    ids.splice(ids.length-1, 1);
+    return ids;
+}
+
+let library = []
+function setLibrary() {
+    let books = getBookIds();
+    if (books) {
+        for (let i = 0; i < books.length; i++) {
+            let id = books[i];
+            let book = JSON.parse(localStorage.getItem(id));
+            library.push(book);
+        }
+    }
+}
+
+
 class Book {
     constructor(title, author, pages, read) {
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.read = read;
+        let books = getBookIds();
+        if (books) {
+            let lastId = books[parseInt(books.length-1)];
+            this.id = lastId + 1;
+        } else {
+            this.id = 0;
+        }
+        
     }
 }
-
-let books = [
-    new Book("This is a very long title that will either break everything or wrap", "Author", 193, true),
-    new Book("Title 2", "Author 2", 205, false),
-    new Book("Title 3", "Author 3", 332, true),
-    new Book("Title 4", "Author 4", 395, true),
-    new Book("title 5", "Author 5", 582, false)
-];
 
 
 function updatePage() {
@@ -22,9 +45,12 @@ function updatePage() {
     while (booksContainer.firstChild) {
         booksContainer.removeChild(booksContainer.firstChild);
     }
-
-    for (let i = 0; i < books.length; i++) {
-        let book = books[i];
+    let bookIds = getBookIds();
+    if (!bookIds) {
+        return;
+    }
+    for (let i = 0; i < bookIds.length; i++) {
+        let book = JSON.parse(localStorage.getItem(bookIds[i]));
         // create book card element
         let bookCard = document.createElement("div");
         bookCard.className = "card";
@@ -58,27 +84,7 @@ function updatePage() {
         remove.style['float'] = "right";
         bookCard.appendChild(remove);
         document.getElementById("books").appendChild(bookCard);
-    }
-    let removeButtons = document.getElementsByClassName("remove");
-    for (let button of removeButtons) {
-        button.addEventListener("click", () => {
-            let parentBookCard = button.parentElement;
-            let title = parentBookCard.getElementsByClassName("title")[0].textContent;
-            for (let i = 0; i < books.length; i++) {
-                if (books[i].title == title) {
-                    books.splice(i, 1);
-                }
-            }
-            updatePage();
-        });
-    }    
-}
-
-
-function addBook(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
-    books.push(book);
-    updatePage();
+    } 
 }
 
 
@@ -103,6 +109,39 @@ document.getElementById("add-book-submit").addEventListener("click", () => {
 });
 
 
+setLibrary();
 updatePage();
 
 
+function setRemoveButtons() {
+    let removeButtons = document.getElementsByClassName("remove");
+    for (let button of removeButtons) {
+        button.addEventListener("click", () => {
+            let parentBookCard = button.parentElement;
+            let title = parentBookCard.getElementsByClassName("title")[0].textContent;
+            let index = library.findIndex((book) => {
+                return book.title == title;
+            });
+            localStorage.removeItem(library[index].id.toString());
+            let ids = localStorage.getItem("ids");
+            let newIds = ids.replace(library[index].id.toString() + ",", "");
+            localStorage.setItem("ids", newIds);
+            setLibrary();
+            updatePage();
+        });
+    }  
+}
+
+function addBook(title, author, pages, read) {
+    let book = new Book(title, author, pages, read);
+    // CHECK FOR UNIQUE TITLE
+    let ids = localStorage.getItem("ids");
+    ids = ids + book.id + ",";
+    localStorage.setItem("ids", ids);
+    localStorage.setItem(book.id, JSON.stringify(book));
+    setLibrary();
+    updatePage();
+    setRemoveButtons();
+}
+
+setRemoveButtons();
