@@ -31,6 +31,7 @@ function updatePage() {
         // add title element
         let title = document.createElement("h2");
         title.textContent = book.title;
+        title.className = "title";
         bookCard.appendChild(title);
         // add author element
         let author = document.createElement("h3");
@@ -58,6 +59,19 @@ function updatePage() {
         bookCard.appendChild(remove);
         document.getElementById("books").appendChild(bookCard);
     }
+    let removeButtons = document.getElementsByClassName("remove");
+    for (let button of removeButtons) {
+        button.addEventListener("click", () => {
+            let parentBookCard = button.parentElement;
+            let title = parentBookCard.getElementsByClassName("title")[0].textContent;
+            for (let i = 0; i < books.length; i++) {
+                if (books[i].title == title) {
+                    books.splice(i, 1);
+                }
+            }
+            updatePage();
+        });
+    }    
 }
 
 
@@ -66,6 +80,8 @@ function addBook(title, author, pages, read) {
     books.push(book);
     updatePage();
 }
+
+
 
 
 document.getElementById("add-book-button").addEventListener("click", () => {
@@ -88,3 +104,5 @@ document.getElementById("add-book-submit").addEventListener("click", () => {
 
 
 updatePage();
+
+
