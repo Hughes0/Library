@@ -1,28 +1,58 @@
+:root {
+    --primary: #88bdb1;
+    --primary-two: #54a391;
+    --secondary: #8894bd;
+    --secondary-two: #5467a3;
+    --tertiary: #d7cfb6;
+    --tertiary-two: #bead7b;
+}
+
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom right, white, lightgray);
+    margin: 0;
 }
 
 header {
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    background-image: linear-gradient(to right, var(--secondary-two), var(--secondary));
+    color: var(--tertiary);
+}
+
+header h1 {
+    font-size: 48px;
+}
+
+#stats {
+    padding: 5px;
+    border: 1px solid var(--tertiary);
+    border-radius: 5px;
+}
+
+#stats span {
+    font-weight: bold;
 }
 
 #books {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);}
+    grid-template-columns: repeat(4, 1fr);
+}
 
 .card {
     margin: 10px;
     padding: 10px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.8);
     transition: 0.3s;
     border-radius: 5px;
+    color: var(--secondary-two);
+    background-image: linear-gradient(to bottom right, var(--primary), var(--primary-two));
 }
 
 .card:hover {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
 }
 
 .remove {
@@ -48,7 +78,7 @@ header {
 }
 
 #modal-content {
-    background-color: white;
+    background-color: var(--tertiary);
     margin: auto;
     border: 1px solid black;
     border-radius: 5px;
@@ -67,8 +97,18 @@ header {
     border: none;
 }
 
+#modal-content h1, label {
+    color: var(--secondary-two);
+}
+
+
 #modal-content > input {
     border: 1px solid black;
+    background-color: var(--tertiary-two);
+}
+
+#modal-content > input::placeholder {
+    color: var(--secondary-two);
 }
 
 #modal-content p {
