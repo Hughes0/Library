@@ -103,8 +103,8 @@ header h1 {
 
 
 #modal-content > input {
-    border: 1px solid black;
     background-color: var(--tertiary-two);
+    width: 98%;
 }
 
 #modal-content > input::placeholder {
